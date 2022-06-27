@@ -8,7 +8,7 @@ This project is meant to be used as a template for building a mobile app wrapper
 
 In order for this app to work correctly, you must update the following:
 
-1. The constant `APP_NAME` should match the name of your app route (i.e. `landscape`)
+1. The constant `APP_ROUTE` and `APP_TITLE` in `/src/util/constants.ts` should match the name of your app route (i.e. `landscape`)
 2. Update the image files in `/assets`
 3. Update `package.json` and `app.json` with your app name, `package` (Android), and `bundleIdentifier` (iOS)
 

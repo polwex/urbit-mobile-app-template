@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from "expo-status-bar";
-import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, Button, StyleSheet, Text, View } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { ActivityIndicator, AppState, AppStateStatus, Button, StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Notifications from 'expo-notifications';
 import * as Network from 'expo-network';
@@ -15,9 +15,7 @@ import LoginScreen from "./screens/Login";
 import storage from "./util/storage";
 import { URBIT_HOME_REGEX } from "./util/regex";
 import { getNotificationData } from './util/notification';
-
-// Note: this should match the name of the urbit app route
-export const APP_NAME = 'escape'
+import { APP_ROUTE } from './util/constants';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -32,7 +30,8 @@ export default function App() {
   const colorScheme = useColorScheme();
   const { loading, setLoading, ship, shipUrl, authCookie, loadStore, needLogin, setNeedLogin, setShip, setPath } = useStore();
   const isDark = colorScheme === 'dark';
-  const [connected, setConnected] = useState(true)
+  const [connected, setConnected] = useState(false);
+  const appState = useRef(AppState.currentState);
 
   const checkNetwork = useCallback(async () => {
     const networkState = await Network.getNetworkStateAsync();
@@ -65,12 +64,25 @@ export default function App() {
         if (targetShip !== ship) {
           setShip(targetShip);
         }
-        setPath(targetShip, `/apps/${APP_NAME}/`);
-        setPath(targetShip, `/apps/${APP_NAME}${redirect}`);
+        setPath(targetShip, `/apps/${APP_ROUTE}/`);
+        setPath(targetShip, `/apps/${APP_ROUTE}${redirect}`);
       }
     });
 
-    return subscription.remove;
+    const handleAppStateChange = (nextAppState: AppStateStatus) => {
+      if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+        checkNetwork();
+      }
+
+      appState.current = nextAppState;
+    }
+
+    const appStateListener = AppState.addEventListener("change", handleAppStateChange);
+
+    return () => {
+      subscription.remove;
+      appStateListener.remove();
+    };
   }, []);
 
   const backgroundColor = isDark ? 'black' : 'white';

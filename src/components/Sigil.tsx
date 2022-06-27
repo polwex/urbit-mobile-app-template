@@ -41,6 +41,10 @@ export const Sigil = memo(
       ? foreground
       : foregroundFromBackground(color);
 
+    if (!ship) {
+      return null;
+    }
+
     return ship.length > 14 ? (
       <View style={{
         backgroundColor: color,

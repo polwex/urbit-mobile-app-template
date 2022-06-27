@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Button, Image, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import { APP_NAME } from "../App";
+import { APP_ROUTE, APP_TITLE } from "../util/constants";
 
 import { Text, View } from "../components/Themed";
 import useStore from "../hooks/useStore";
 import { URBIT_HOME_REGEX } from "../util/regex";
+import { capitalize } from "../util/string";
 
 const SHIP_COOKIE_REGEX = /(~)[a-z\-]+?(\=)/;
 const getShipFromCookie = (cookie: string) => cookie.match(SHIP_COOKIE_REGEX)![0].slice(0, -1);
@@ -28,12 +29,12 @@ export default function LoginScreen() {
             const authCookieHeader = response.headers.get('set-cookie') || 'valid';
             if (typeof authCookieHeader === 'string' && authCookieHeader?.includes('urbauth-~')) {
               const ship = getShipFromCookie(authCookieHeader);
-              addShip({ ship, shipUrl, authCookie: authCookieHeader, path: `/apps/${APP_NAME}/` });
+              addShip({ ship, shipUrl, authCookie: authCookieHeader, path: `/apps/${APP_ROUTE}/` });
             }
           } else {
             const stringMatch = html.match(/<input value="~.*?" disabled="true"/i) || [];
             const urbitId = stringMatch[0]?.slice(14, -17);
-            if (urbitId) addShip({ ship: urbitId, shipUrl, path: `/apps/${APP_NAME}/` });
+            if (urbitId) addShip({ ship: urbitId, shipUrl, path: `/apps/${APP_ROUTE}/` });
           }
         })
         .catch(console.error)
@@ -51,7 +52,7 @@ export default function LoginScreen() {
     const noPrefixRegex = /^[A-Za-z0-9]+\.([\w#!:.?+=&%@!\-\/])+$/i;
 
     const prefixedUrl = noPrefixRegex.test(shipUrlInput) && !leadingHttpRegex.test(shipUrlInput) ? `https://${shipUrlInput}` : shipUrlInput;
-    const formattedUrl = (prefixedUrl.endsWith("/") ? prefixedUrl.slice(0, prefixedUrl.length - 1) : prefixedUrl).replace(`/apps/${APP_NAME}`, '');
+    const formattedUrl = (prefixedUrl.endsWith("/") ? prefixedUrl.slice(0, prefixedUrl.length - 1) : prefixedUrl).replace(`/apps/${APP_ROUTE}`, '');
 
     if (!formattedUrl.match(leadingHttpRegex)) {
       setUrlProblem('Please enter a valid ship URL.');
@@ -71,13 +72,13 @@ export default function LoginScreen() {
         if (typeof authCookieHeader === 'string' && authCookieHeader?.includes('urbauth-~')) {
           // TODO: handle expired auth or determine if auth has already expired
           const ship = getShipFromCookie(authCookieHeader);
-          addShip({ ship, shipUrl: formattedUrl, authCookie: authCookieHeader, path: `/apps/${APP_NAME}/` });
+          addShip({ ship, shipUrl: formattedUrl, authCookie: authCookieHeader, path: `/apps/${APP_ROUTE}/` });
         } else {
           const html = await response?.text();
           if (html) {
             const stringMatch = html.match(/<input value="~.*?" disabled="true"/i) || [];
             const ship = stringMatch[0]?.slice(14, -17);
-            if (ship) addShip({ ship, shipUrl: formattedUrl, path: `/apps/${APP_NAME}/` });
+            if (ship) addShip({ ship, shipUrl: formattedUrl, path: `/apps/${APP_ROUTE}/` });
           }
         }
       } else {
@@ -109,7 +110,7 @@ export default function LoginScreen() {
           if (!authCookieHeader) {
             setLoginProblem('Please enter a valid access key.');
           } else {
-            addShip({ ship, shipUrl, authCookie: authCookieHeader, path: `/apps/${APP_NAME}/` })
+            addShip({ ship, shipUrl, authCookie: authCookieHeader, path: `/apps/${APP_ROUTE}/` })
           }
         })
         .catch((err) => {
@@ -132,7 +133,7 @@ export default function LoginScreen() {
           style={styles.logo}
           source={require('../../assets/images/icon.png')}
         />
-        <Text style={styles.welcome}>Welcome to %{APP_NAME}</Text>
+        <Text style={styles.welcome}>Welcome to {APP_TITLE}</Text>
       </View>
 
       {!shipUrl ? (

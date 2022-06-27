@@ -1,5 +1,5 @@
 import create from "zustand";
-import { APP_NAME } from "../App";
+import { APP_ROUTE } from "../util/constants";
 import { APP_URL_REGEX } from "../constants/Webview";
 import storage from "../util/storage";
 import { deSig } from "../util/string";
@@ -60,7 +60,7 @@ const useStore = create<Store>((set) => ({
       ...store,
       ships: store.ships.map((s: ShipConnection) => ({
         ...s,
-        path: APP_URL_REGEX.test(s.currentPath || '') ? s.currentPath : `/apps/${APP_NAME}/`
+        path: APP_URL_REGEX.test(s.currentPath || '') ? s.currentPath : `/apps/${APP_ROUTE}/`
       }))
     };
   }),

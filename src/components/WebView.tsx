@@ -5,7 +5,7 @@ import { WebViewErrorEvent, WebViewHttpErrorEvent, WebViewNavigationEvent, WebVi
 import { Ionicons } from "@expo/vector-icons";
 import { APP_URL_REGEX, TARGET_APP_URL_REGEX, GRID_URL_REGEX, DISTRO_SHIP } from '../constants/Webview';
 import useStore from "../hooks/useStore";
-import { APP_NAME } from "../App";
+import { APP_ROUTE, APP_TITLE } from "../util/constants";
 
 // Note: there is a lot of custom functionality in this file. Feel free to modify if you are comfortable with React Native
 
@@ -70,7 +70,7 @@ const Webview = ({
   mark: "settings-event",
   json: {
     "put-entry": {
-      "desk": "${APP_NAME}",
+      "desk": "${APP_ROUTE}",
       "bucket-key": "notifications",
       "entry-key": "expo-token",
       "value": "${pushNotificationsToken}",
@@ -84,8 +84,8 @@ const Webview = ({
       if (GRID_URL_REGEX.test(url) && !appInstalled && !installPromptActive) {
         setInstallPromptActive(true)
         Alert.alert(
-          `Install %${APP_NAME}`,
-          `%${APP_NAME} is not installed, would you like to install it?`,
+          `Install %${APP_TITLE}`,
+          `%${APP_TITLE} is not installed, would you like to install it?`,
           [
             {
               text: "No",
@@ -97,13 +97,13 @@ const Webview = ({
               onPress: () => {
                 setTimeout(() => {
                   webView?.current?.injectJavaScript(
-        `window.docket().requestTreaty('${DISTRO_SHIP}', '${APP_NAME}');
-        window.docket().installDocket('${DISTRO_SHIP}', '${APP_NAME}');`
+        `window.docket().requestTreaty('${DISTRO_SHIP}', '${APP_ROUTE}');
+        window.docket().installDocket('${DISTRO_SHIP}', '${APP_ROUTE}');`
                   );
                   setAppInstalled(true);
                   Alert.alert(
-                    `Installing %${APP_NAME}`,
-                    `%${APP_NAME} should now be installing, if it does not install please install manually from ${DISTRO_SHIP}. \n\nTap on the ${APP_NAME} tile to open it when installation is complete.`,
+                    `Installing %${APP_ROUTE}`,
+                    `%${APP_ROUTE} should now be installing, if it does not install please install manually from ${DISTRO_SHIP}. \n\nTap on the ${APP_ROUTE} tile to open it when installation is complete.`,
                     [{ text: "OK", style: "cancel" }],
                     { cancelable: true }
                   )
@@ -132,11 +132,11 @@ const Webview = ({
       appState.current = nextAppState;
     }
 
-    AppState.addEventListener("change", handleAppStateChange);
+    const appStateListener = AppState.addEventListener("change", handleAppStateChange);
 
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", HandleBackPressed);
-      AppState.removeEventListener("change", handleAppStateChange);
+      appStateListener.remove();
     };
   }, []); // INITIALIZE ONLY ONCE
 

@@ -4,7 +4,7 @@
     "slug": "urbit-mobile-app-template",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
     "notification": {
       "icon": "./local/assets/notification-icon.png",
@@ -19,8 +19,9 @@
         }
       ]
     ],
+    "scheme": "default",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -32,7 +33,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "urbit.mobile-app.template",
+      "bundleIdentifier": "urbit.template.app",
       "buildNumber": "1"
     },
     "android": {
@@ -40,9 +41,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "googleServicesFile": "./google-services.json",
       "versionCode": 1,
-      "package": "urbit.mobile-app.template",
+      "package": "urbit.template.app",
       "permissions": [
         "com.google.android.c2dm.permission.RECEIVE",
         "com.anddoes.launcher.permission.UPDATE_COUNT",
@@ -56,7 +56,7 @@
       ]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/favicon.png"
     }
   }
 }

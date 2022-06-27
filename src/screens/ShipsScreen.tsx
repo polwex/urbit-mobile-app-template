@@ -6,7 +6,7 @@ import { Text, View } from "../components/Themed";
 import useStore from "../hooks/useStore";
 import { RootStackScreenProps } from "../../types";
 import Sigil from "../components/Sigil";
-import { APP_NAME } from "../App";
+import { APP_ROUTE } from "../util/constants";
 
 export default function ShipsScreen({
   navigation,
@@ -17,8 +17,8 @@ export default function ShipsScreen({
 
   const handleRefresh = () => {
     ships.forEach(sc => {
-      setPath(sc.ship, `/apps/${APP_NAME}/~landscape`)
-      setPath(sc.ship, `/apps/${APP_NAME}/`)
+      setPath(sc.ship, `/apps/${APP_ROUTE}/~landscape`)
+      setPath(sc.ship, `/apps/${APP_ROUTE}/`)
     });
     navigation.goBack();
   };

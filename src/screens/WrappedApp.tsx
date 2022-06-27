@@ -7,7 +7,7 @@ import Webview from "../components/WebView";
 import { StyleSheet, View } from "react-native";
 import { getNotificationData, getPushNotificationToken } from "../util/notification";
 import { deSig, samePath } from "../util/string";
-import { APP_NAME } from "../App";
+import { APP_ROUTE } from "../util/constants";
 
 interface WrappedAppWindowProps {
   shipConnection: ShipConnection;
@@ -29,7 +29,7 @@ function WrappedAppWindow({
     const { type, pathname } = JSON.parse(event.nativeEvent.data);
 
     if (type === 'navigation-change') {
-      setCurrentPath(ship, `/apps/${APP_NAME}${pathname}`);
+      setCurrentPath(ship, `/apps/${APP_ROUTE}${pathname}`);
     } else if (type === 'logout') {
       removeShip(ship);
     }
@@ -40,7 +40,7 @@ function WrappedAppWindow({
       handleNotification: async (notification) => {
         const { redirect, targetShip } = getNotificationData(notification);
 
-        if (deSig(targetShip) === deSig(selectedShip) && samePath(`/apps/${APP_NAME}${redirect}`, currentPath)) {
+        if (deSig(targetShip) === deSig(selectedShip) && samePath(`/apps/${APP_ROUTE}${redirect}`, currentPath)) {
           return { shouldShowAlert: false, shouldPlaySound: false, shouldSetBadge: false };
         }
 
@@ -49,7 +49,7 @@ function WrappedAppWindow({
     });
   }, [currentPath, selectedShip]);
 
-  const url = `${shipUrl}${path || `/apps/${APP_NAME}/`}`.toLowerCase();
+  const url = `${shipUrl}${path || `/apps/${APP_ROUTE}/`}`.toLowerCase();
   
   return <Webview {...{ url, shipUrl, onMessage, androidHardwareAccelerationDisabled, pushNotificationsToken, ship }} />;
 }
