@@ -2,6 +2,8 @@
 
 This project is meant to be used as a template for building a mobile app wrapper for urbit apps.
 
+The template is based on [Expo](https://docs.expo.dev/).
+
 ## How to Use
 
 ### Modify Code
@@ -14,7 +16,7 @@ In order for this app to work correctly, you must update the following:
 
 ### Development
 
-The easiet way to do development is to run `expo start`, install the Expo Go app on your phone, and then follow the instructions to download the dev version of your app. The app should have hot reloading by default.
+The easiet way to do development is to run `expo start`, install the Expo Go app on your phone, and then follow the instructions to download and run the dev version of your app. The app should have hot reloading by default.
 
 ### Prepare for Release
 
