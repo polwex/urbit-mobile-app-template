@@ -15,9 +15,10 @@ The template is based on [Expo](https://docs.expo.dev/).
 
 In order for this app to work correctly, you must update the following:
 
-1. The constant `APP_ROUTE` and `APP_TITLE` in `/src/util/constants.ts` should match the name of your app route (i.e. `landscape`)
-2. Update the image files in `/assets`
-3. Update `package.json` and `app.json` with your app name, `package` (Android), and `bundleIdentifier` (iOS)
+1. The constants `APP_ROUTE` and `APP_TITLE` in `/src/constants/App.ts` should match the name of your app route (i.e. `landscape`)
+2. The regular expressions `TARGET_APP_URL_REGEX` and `DISTRO_SHIP` in `/src/constants/Webview.ts` should match the name of your app route and distro ship respectively
+3. Update the image files in `/assets`
+4. Update `package.json` and `app.json` with your app name, `package` (Android), and `bundleIdentifier` (iOS)
 
 ### Development
 

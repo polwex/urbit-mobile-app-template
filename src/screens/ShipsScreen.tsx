@@ -6,7 +6,7 @@ import { Text, View } from "../components/Themed";
 import useStore from "../hooks/useStore";
 import { RootStackScreenProps } from "../../types";
 import Sigil from "../components/Sigil";
-import { APP_ROUTE } from "../util/constants";
+import { APP_ROUTE } from "../constants/App";
 
 export default function ShipsScreen({
   navigation,

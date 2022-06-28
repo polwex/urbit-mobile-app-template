@@ -15,7 +15,7 @@ import LoginScreen from "./screens/Login";
 import storage from "./util/storage";
 import { URBIT_HOME_REGEX } from "./util/regex";
 import { getNotificationData } from './util/notification';
-import { APP_ROUTE } from './util/constants';
+import { APP_ROUTE } from './constants/App';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({

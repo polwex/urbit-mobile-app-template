@@ -7,7 +7,7 @@ import Webview from "../components/WebView";
 import { StyleSheet, View } from "react-native";
 import { getNotificationData, getPushNotificationToken } from "../util/notification";
 import { deSig, samePath } from "../util/string";
-import { APP_ROUTE } from "../util/constants";
+import { APP_ROUTE } from "../constants/App";
 
 interface WrappedAppWindowProps {
   shipConnection: ShipConnection;

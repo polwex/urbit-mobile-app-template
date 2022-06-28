@@ -1,5 +1,5 @@
 import create from "zustand";
-import { APP_ROUTE } from "../util/constants";
+import { APP_ROUTE } from "../constants/App";
 import { APP_URL_REGEX } from "../constants/Webview";
 import storage from "../util/storage";
 import { deSig } from "../util/string";

@@ -5,7 +5,7 @@ import { WebViewErrorEvent, WebViewHttpErrorEvent, WebViewNavigationEvent, WebVi
 import { Ionicons } from "@expo/vector-icons";
 import { APP_URL_REGEX, TARGET_APP_URL_REGEX, GRID_URL_REGEX, DISTRO_SHIP } from '../constants/Webview';
 import useStore from "../hooks/useStore";
-import { APP_ROUTE, APP_TITLE } from "../util/constants";
+import { APP_ROUTE, APP_TITLE } from "../constants/App";
 
 // Note: there is a lot of custom functionality in this file. Feel free to modify if you are comfortable with React Native
 

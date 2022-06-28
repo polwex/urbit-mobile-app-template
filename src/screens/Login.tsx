@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Button, Image, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import { APP_ROUTE, APP_TITLE } from "../util/constants";
+import { APP_ROUTE, APP_TITLE } from "../constants/App";
 
 import { Text, View } from "../components/Themed";
 import useStore from "../hooks/useStore";
