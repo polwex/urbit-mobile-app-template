@@ -50,3 +50,7 @@ Specifically:
 2. The push notification must be sent with a `data` payload with a way to navigate the user to the correct page in the web app. Usually this means a `redirect` and a `ship` value [as shown here](https://github.com/uqbar-dao/urbit/blob/escape/pkg/escape/app/push-notify.hoon#L204).
 3. There must be a handler in the mobile app to handle the user tapping on the notification (already included in this template).
 4. You must [follow the guide to set up push notifications](https://docs.expo.dev/push-notifications/push-notifications-setup/#credentials) with Google's Firebase Cloud Messaging (FCM) and Apple Push Notification Services (APNS).
+
+### Contact
+
+Post any questions in the [Uqbar urbit group](web+urbitgraph://group/~hocwyn-tipwex/uqbar-event-horizon) in the [help channel](web+urbitgraph://group/~hocwyn-tipwex/uqbar-event-horizon/graph/~hocwyn-tipwex/help-5285).
