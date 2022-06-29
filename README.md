@@ -51,6 +51,10 @@ Specifically:
 3. There must be a handler in the mobile app to handle the user tapping on the notification (already included in this template).
 4. You must [follow the guide to set up push notifications](https://docs.expo.dev/push-notifications/push-notifications-setup/#credentials) with Google's Firebase Cloud Messaging (FCM) and Apple Push Notification Services (APNS).
 
+### Notes on Publishing to the App Store
+
+The author of this repo went through a little back-and-forth with App Store review when initially publishing. At first they said that it looked like an internal app so the App Store wasn't the right place. I had to put in a logo in order to get around that. I supplied a moon's URL and the +code to log in for testing purposes, but they said that it was weird that I was supplying a URL to log in and was I sure that the App Store is the right place for this? I then replied and said that all prospective users had their own servers, the potential user base was both large and sophisticated, and that all of this was a big part of the app experience which the target users would understand.
+
 ### Contact
 
 Post any questions in the [Uqbar urbit group](web+urbitgraph://group/~hocwyn-tipwex/uqbar-event-horizon) in the [help channel](web+urbitgraph://group/~hocwyn-tipwex/uqbar-event-horizon/graph/~hocwyn-tipwex/help-5285).
