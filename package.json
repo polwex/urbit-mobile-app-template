@@ -16,6 +16,7 @@
     "@react-navigation/native-stack": "^6.6.2",
     "@tlon/sigil-js": "^1.4.5",
     "expo": "~45.0.0",
+    "expo-barcode-scanner": "~11.3.0",
     "expo-linking": "~3.1.0",
     "expo-network": "~4.2.0",
     "expo-notifications": "~0.15.3",
