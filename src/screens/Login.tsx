@@ -125,6 +125,41 @@ export default function LoginScreen() {
       <ActivityIndicator size="large" color="#000000" />
     </View>
   }
+  function handleScan(result: string){
+    console.log(result, "this is the url")
+    fetch(result, {method: "POST"})
+    .then(res => res.json())
+    .then(json => {
+      if ("error" in json) alert(json.error)
+      else if ("ok" in json) {
+        const url = new URL(result);
+        handleQRLogin(url.origin, json.ok)
+      }
+    })
+    .catch(e => console.warn('ERROR LOGGING IN'));
+  }
+  function handleQRLogin(url: string, code: string){
+    const formBody = `${encodeURIComponent('password')}=${encodeURIComponent(code)}`;
+      fetch(`${url}/~/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body: formBody
+      })
+        .then((response) => {
+          const authCookieHeader = response.headers.get('set-cookie') || '';
+          if (!authCookieHeader) {
+            setLoginProblem('Invalid QR code'); // wouldn't get this far, though
+          } else {
+            addShip({ ship, shipUrl: url, authCookie: authCookieHeader, path: `/apps/${APP_ROUTE}/` })
+          }
+        })
+        .catch((err) => {
+          console.warn('ERROR LOGGING IN')
+        });
+      };
+
 
   return (
     <View style={styles.shipInputView}>
@@ -138,6 +173,7 @@ export default function LoginScreen() {
 
       {!shipUrl ? (
         <>
+          <QrCodeScanner onScan={handleScan}/>
           <Text style={styles.label}>
             Please enter the url to your urbit ship to log in:
           </Text>
