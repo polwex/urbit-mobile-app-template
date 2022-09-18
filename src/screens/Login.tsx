@@ -211,7 +211,6 @@ export default function LoginScreen() {
     const formBody = `${encodeURIComponent("password")}=${encodeURIComponent(
       code
     )}`;
-    console.log(formBody, "fb")
     fetch(`${url}/~/login`, {
       method: "POST",
       headers: {
