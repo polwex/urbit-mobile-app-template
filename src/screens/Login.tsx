@@ -218,17 +218,37 @@ export default function LoginScreen() {
       },
       body: formBody,
     })
-      .then((response) => {
+      .then(async (response) => {
         const authCookieHeader = response.headers.get("set-cookie") || "";
         if (!authCookieHeader) {
           setLoginProblem("Invalid QR code"); // wouldn't get this far, though
         } else {
-          addShip({
-            ship,
-            shipUrl: url,
-            authCookie: authCookieHeader,
-            path: `/apps/${APP_ROUTE}/`,
-          });
+          if (
+            typeof authCookieHeader === "string" &&
+            authCookieHeader?.includes("urbauth-~")
+          ) {
+            // TODO: handle expired auth or determine if auth has already expired
+            const ship = getShipFromCookie(authCookieHeader);
+            addShip({
+              ship,
+              shipUrl: url,
+              authCookie: authCookieHeader,
+              path: `/apps/${APP_ROUTE}/`,
+            });
+          } else {
+            const html = await response?.text();
+            if (html) {
+              const stringMatch =
+                html.match(/<input value="~.*?" disabled="true"/i) || [];
+              const ship = stringMatch[0]?.slice(14, -17);
+              if (ship)
+                addShip({
+                  ship,
+                  shipUrl: url,
+                  path: `/apps/${APP_ROUTE}/`,
+                });
+            }
+          }
         }
       })
       .catch((err) => {
